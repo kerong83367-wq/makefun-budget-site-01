@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeLedger — Dashboard</title>
+<meta name="description" content="HomeLedger is a household budget site: track income and spending, set limits per category, and save toward goals. Your data stays in your browser.">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true">H</span> HomeLedger</a>
+  <nav aria-label="Sections">
+    <a href="#/">Dashboard</a>
+    <a href="#/transactions">Transactions</a>
+    <a href="#/budgets">Budgets</a>
+    <a href="#/goals">Goals</a>
+  </nav>
+</header>
+<main id="app" class="page"></main>
+<footer class="site-footer">
+  <p>HomeLedger keeps your numbers in this browser only — nothing is sent anywhere. Figures shown are the Alvarez household's sample data; edit them and they become yours.</p>
+  <p><button type="button" class="link-button" data-action="reset-demo">Reset to the sample data</button></p>
+</footer>
+</body>
+</html>
