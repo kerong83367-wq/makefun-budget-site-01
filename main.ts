@@ -13,7 +13,7 @@
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 // (outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output)
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
@@ -22,9 +22,13 @@ const repoRoot = fileURLToPath(new URL('.', import.meta.url));
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 // Start from an empty output directory so a stale file from an earlier run
-// can never ride along into this one.
-rmSync(outDir, { recursive: true, force: true });
+// can never ride along into this one. Clear only the directory's contents,
+// never the directory itself: the grader mounts /output, and removing a
+// mount point fails (EBUSY) and kills the run.
 mkdirSync(outDir, { recursive: true });
+for (const entry of readdirSync(outDir)) {
+  rmSync(join(outDir, entry), { recursive: true, force: true });
+}
 
 // Refuse to hand in a site with no front door: if app/index.html is missing,
 // the entry would be an empty folder, and failing here says so plainly.
